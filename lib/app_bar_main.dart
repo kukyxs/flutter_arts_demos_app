@@ -105,6 +105,20 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           child: Text('Drawer', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 30.0)),
         )),
       ),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(icon: Icon(Icons.android, size: 30.0, color: Theme.of(context).primaryColor), onPressed: () {}),
+            IconButton(icon: Icon(Icons.people, size: 30.0, color: Theme.of(context).primaryColor), onPressed: () {})
+          ],
+        ),
+      ),
+      floatingActionButton:
+          FloatingActionButton(onPressed: () => print('Add'), child: Icon(Icons.add, color: Colors.white)),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
 
     //    return Scaffold(body: TabChangePage(content: 'Content'));
