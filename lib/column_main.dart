@@ -34,6 +34,15 @@ class HomePage extends StatelessWidget {
 //            shape: BoxShape.circle, // 该属性不可同 borderRadius 一起使用
             backgroundBlendMode: BlendMode.colorDodge, // 背景图片和颜色混合模式
             image: DecorationImage(image: AssetImage('images/ali.jpg'), fit: BoxFit.cover)),
+
+//        child: Column(
+//          children: <Widget>[
+//            Text('Container Text', style: TextStyle(color: Colors.white, fontSize: 30.0)),
+//            Padding(
+//                padding: const EdgeInsets.symmetric(vertical: 12.0),
+//                child: Text('Container Text', style: TextStyle(color: Colors.white, fontSize: 30.0)))
+//          ],
+//        ),
         child: Wrap(
           spacing: 50.0,
           runAlignment: WrapAlignment.center,
