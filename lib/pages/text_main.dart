@@ -1,24 +1,10 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(DemoApp());
-
-class DemoApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
+class TextDemoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text('Text Demo Page')),
         body: Container(
           padding: const EdgeInsets.only(top: 10.0),
           child: Center(

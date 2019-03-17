@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(DemoApp());
-
-class DemoApp extends StatelessWidget {
+class TextFieldDemoPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
-      home: HomePage(),
-    );
-  }
+  _TextFieldDemoPageState createState() => _TextFieldDemoPageState();
 }
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
+class _TextFieldDemoPageState extends State<TextFieldDemoPage> {
   // 可以传入初始值
   TextEditingController _editController = TextEditingController();
   FocusNode _editNode = FocusNode();

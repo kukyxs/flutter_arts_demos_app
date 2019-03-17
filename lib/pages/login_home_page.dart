@@ -1,38 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_arts_demos_app/third_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'third_icons.dart';
-
-void main() {
-  runApp(LoginApp());
-
-  if (Platform.isAndroid) {
-    var style = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
-    SystemChrome.setSystemUIOverlayStyle(style);
-  }
-}
-
-class LoginApp extends StatelessWidget {
+class LoginDemoPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
-      home: LoginHomePage(),
-    );
-  }
+  _LoginDemoPageState createState() => _LoginDemoPageState();
 }
 
-class LoginHomePage extends StatefulWidget {
-  @override
-  _LoginHomePageState createState() => _LoginHomePageState();
-}
-
-class _LoginHomePageState extends State<LoginHomePage> with SingleTickerProviderStateMixin {
+class _LoginDemoPageState extends State<LoginDemoPage> with SingleTickerProviderStateMixin {
   TabController _tabController;
   List<String> _pageIndicators = ['登录', '注册'];
   List<Widget> _pages = [];

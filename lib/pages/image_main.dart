@@ -1,20 +1,6 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(DemoApp());
-
-class DemoApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightBlue),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
+class ImageDemoPage extends StatelessWidget {
   final String _assetAli = 'images/ali.jpg';
   final String _picUrl =
       'https://timg05.bdimg.com/timg?wapbaike&quality=60&size=b1440_952&cut_x=143&cut_y=0&cut_w=1633&'
