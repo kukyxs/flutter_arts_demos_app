@@ -1,8 +1,10 @@
-# flutter_arts_demos_app
+### flutter_arts_demos_app
 
-An application record art demos
+这个仓库用于托管 `Flutter` 系列文章的 `demo` 代码，查看文章直接点击链接查看
+[Flutter 入门指北系列](https://www.jianshu.com/nb/34950817)
 
-## Getting Started
+
+### Getting Started
 
 This project is a starting point for a Flutter application.
 
