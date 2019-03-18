@@ -99,9 +99,10 @@ class _LoginPageState extends State<LoginPage> {
       var password = _passwordController.value.text;
 
       // 判断登录条件
-      if (username == 'kuky' && password == '123456')
+      if (username == 'kuky' && password == '123456') {
         Fluttertoast.showToast(msg: '登录成功');
-      else
+        Navigator.pop(context);
+      } else
         Fluttertoast.showToast(msg: '登录失败');
     }
   }
