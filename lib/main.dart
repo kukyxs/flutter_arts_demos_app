@@ -8,6 +8,7 @@ import 'package:flutter_arts_demos_app/pages/app_bar_main.dart';
 import 'package:flutter_arts_demos_app/pages/button_main.dart';
 import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
+import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
 import 'package:flutter_arts_demos_app/pages/scrollable_main.dart';
@@ -83,6 +84,9 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
               title: 'Scrollable Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollableDemoPage()))),
+          MenuActionItem(
+              title: 'ExpansionTile Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExpansionTilesDemoPage()))),
           MenuActionItem(
               title: 'Sliver Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage()))),
