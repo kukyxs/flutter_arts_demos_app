@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_arts_demos_app/custom_routes.dart';
 import 'package:flutter_arts_demos_app/pages/app_bar_main.dart';
 import 'package:flutter_arts_demos_app/pages/button_main.dart';
+import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
@@ -66,6 +67,10 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
             title: 'Stack Demo',
             clickAction: () => Navigator.push(context, ScalePageRoute(StackDemoPage())),
+          ),
+          MenuActionItem(
+            title: 'Check Switch Demo',
+            clickAction: () => Navigator.push(context, ScalePageRoute(CheckSwitchDemoPage())),
           ),
           MenuActionItem(
             title: 'TextField Demo',
