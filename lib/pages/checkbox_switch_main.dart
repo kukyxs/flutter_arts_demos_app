@@ -24,6 +24,7 @@ class _CheckSwitchDemoPageState extends State<CheckSwitchDemoPage> {
       ),
       body: Column(children: <Widget>[
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Checkbox(
               // 是否开启三态
@@ -47,6 +48,7 @@ class _CheckSwitchDemoPageState extends State<CheckSwitchDemoPage> {
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             Switch(
                 // 开启时候，那个条的颜色
