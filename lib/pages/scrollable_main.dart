@@ -3,6 +3,7 @@ import 'package:flutter_arts_demos_app/pages/custom_scroll_main.dart';
 import 'package:flutter_arts_demos_app/pages/gridview_main.dart';
 import 'package:flutter_arts_demos_app/pages/listview_main.dart';
 import 'package:flutter_arts_demos_app/pages/nested_scroll_main.dart';
+import 'package:flutter_arts_demos_app/pages/scroll_controller_main.dart';
 import 'package:flutter_arts_demos_app/pages/single_child_scroll_main.dart';
 
 import '../main.dart';
@@ -30,6 +31,9 @@ class ScrollableDemoPage extends StatelessWidget {
         MenuActionItem(
             title: 'NestedScrollView',
             clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => NestedScrollDemoPage()))),
+        MenuActionItem(
+            title: 'ScrollController',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollControllerDemoPage()))),
       ]),
     );
   }
