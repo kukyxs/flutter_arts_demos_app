@@ -11,6 +11,17 @@ class ExpansionTilesDemoPage extends StatelessWidget {
     'ParentF': ['Child F0', 'Child F1', 'Child F2', 'Child F3', 'Child F4', 'Child F5']
   };
 
+  final _forthLevelData = [
+    [
+      ['A0', 'A1', 'A2', 'A3'],
+      ['B0', 'B1', 'B2', 'B3']
+    ],
+    [
+      ['Aa0', 'Aa1', 'Aa2', 'Aa3'],
+      ['Bb0', 'Bb1', 'Bb2', 'Bb3']
+    ]
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,22 +51,39 @@ class ExpansionTilesDemoPage extends StatelessWidget {
 //                )),
 //      ),
 
-      body: ListView(
-          children: _keys
-              .map((key) => ExpansionTile(
-                    title: Text(key),
-                    children: _data[key]
-                        .map((value) => InkWell(
-                            child: Container(
-                              child: Text(value),
-                              padding: const EdgeInsets.only(left: 80.0),
-                              height: 50.0,
-                              alignment: Alignment.centerLeft,
-                            ),
-                            onTap: () {}))
-                        .toList(),
-                  ))
-              .toList()),
+//      body: ListView(
+//          children: _keys
+//              .map((key) => ExpansionTile(
+//                    title: Text(key),
+//                    children: _data[key]
+//                        .map((value) => InkWell(
+//                            child: Container(
+//                              child: Text(value),
+//                              padding: const EdgeInsets.only(left: 80.0),
+//                              height: 50.0,
+//                              alignment: Alignment.centerLeft,
+//                            ),
+//                            onTap: () {}))
+//                        .toList(),
+//                  ))
+//              .toList()),
+
+      body: SingleChildScrollView(
+        child: ExpansionTile(
+            title: Text('1stParent'),
+            children: _forthLevelData
+                .map((threeLevelData) => ExpansionTile(
+                    title: Text('2ndParent'),
+                    children: threeLevelData
+                        .map((towLevelData) => ExpansionTile(
+                              title: Text('3rdParent'),
+                              children: towLevelData
+                                  .map((lastLevelData) => Container(child: Text(lastLevelData), height: 50.0))
+                                  .toList(),
+                            ))
+                        .toList()))
+                .toList()),
+      ),
     );
   }
 }
