@@ -11,6 +11,7 @@ import 'package:flutter_arts_demos_app/pages/column_main.dart';
 import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
+import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
 import 'package:flutter_arts_demos_app/pages/scrollable_main.dart';
 import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
@@ -90,6 +91,9 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
               title: 'Sliver Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage()))),
+          MenuActionItem(
+              title: 'Prompt Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
