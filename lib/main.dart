@@ -17,6 +17,7 @@ import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(DemoApp());
@@ -34,6 +35,11 @@ class DemoApp extends StatelessWidget {
       title: 'Flutter Learning Demo',
       home: MainHomePage(),
       routes: {},
+      supportedLocales: const [const Locale('zh')],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       debugShowCheckedModeBanner: false,
     );
   }
