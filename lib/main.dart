@@ -4,11 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_arts_demos_app/custom_routes.dart';
+import 'package:flutter_arts_demos_app/pages/animation_main.dart';
 import 'package:flutter_arts_demos_app/pages/app_bar_main.dart';
 import 'package:flutter_arts_demos_app/pages/button_main.dart';
 import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
 import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
+import 'package:flutter_arts_demos_app/pages/gesture_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
 import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
@@ -18,14 +20,18 @@ import 'package:flutter_arts_demos_app/pages/stack_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_arts_demos_app/pages/router_main.dart';
 
 void main() {
-  runApp(DemoApp());
+  // 强制竖屏
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
+    runApp(DemoApp());
 
-  // 透明状态栏
-  if (Platform.isAndroid) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-  }
+    // 透明状态栏
+    if (Platform.isAndroid) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    }
+  });
 }
 
 class DemoApp extends StatelessWidget {
@@ -100,6 +106,12 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
               title: 'Prompt Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage()))),
+          MenuActionItem(
+              title: 'Gesture Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GestureDemoPage()))),
+          MenuActionItem(
+              title: 'Animation Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
