@@ -17,6 +17,7 @@ import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
 import 'package:flutter_arts_demos_app/pages/scrollable_main.dart';
 import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
+import 'package:flutter_arts_demos_app/pages/staggered_animation_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -112,6 +113,10 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
               title: 'Animation Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage()))),
+          MenuActionItem(
+              title: 'StaggeredAnimations Demo',
+              clickAction: () =>
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
