@@ -23,6 +23,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   fluttertoast: ^3.0.3
   rxdart: ^0.21.0
+  provide: ^1.0.2
 
 dev_dependencies:
   flutter_test:

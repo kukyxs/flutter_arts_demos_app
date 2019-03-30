@@ -9,24 +9,24 @@ class CounterBloc extends BaseBloc {
   int get count => _count;
 
   // rx
-//  BehaviorSubject<int> _counterController = BehaviorSubject();
-//
-//  Observable<int> get counterStream => _counterController.stream;
-//
-//  void dispatch(int value) {
-//    _count = value;
-//    _counterController.add(_count);
-//  }
+  BehaviorSubject<int> _countController = BehaviorSubject();
 
-  // stream
-  StreamController<int> _countController = StreamController.broadcast();
-
-  Stream<int> get countStream => _countController.stream;
+  Observable<int> get countStream => Observable(_countController.stream);
 
   void dispatch(int value) {
     _count = value;
-    _countController.sink.add(_count);
+    _countController.add(_count);
   }
+
+  // stream
+//  StreamController<int> _countController = StreamController.broadcast();
+
+//  Stream<int> get countStream => _countController.stream;
+
+//  void dispatch(int value) {
+//    _count = value;
+//    _countController.sink.add(_count);
+//  }
 
   @override
   void dispose() {
