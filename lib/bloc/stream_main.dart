@@ -1,41 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_arts_demos_app/bloc/count_provider.dart';
+import 'package:provide/provide.dart';
 
-import 'bloc_provider.dart';
-import 'counter_bloc.dart';
+//void main() => runApp(StreamApp());
 
-void main() => runApp(StreamApp());
+void main() {
+  final providers = Providers()
+    ..provide(Provider.function((_) => CountProvider()));
+  runApp(ProviderNode(child: StreamApp(), providers: providers));
+}
 
 class StreamApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: StreamHome(),
-        ),
-        bloc: CounterBloc());
+//    return BlocProvider(
+//        child: MaterialApp(
+//          debugShowCheckedModeBanner: false,
+//          home: StreamHome(),
+//        ),
+//        bloc: CounterBloc());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: StreamHome(),
+    );
   }
 }
 
 class StreamHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final CounterBloc _bloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       body: SafeArea(
           child: Container(
         alignment: Alignment.center,
-        child: StreamBuilder(
-          initialData: _bloc.count,
-          stream: _bloc.countStream,
-          builder: (_, snapshot) => Text('${snapshot.data}', style: TextStyle(fontSize: 20.0)),
-        ),
+        child: Provide<CountProvider>(builder: (_, widget, countProvider) => Text('${countProvider.value}')),
       )),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () => _bloc.dispatch(_bloc.count + 1), child: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () =>
+              Provide.value<CountProvider>(context).changeValue(
+                  Provide.value<CountProvider>(context).value + 1),
+          child: Icon(Icons.add)),
     );
   }
 }
+
+//class StreamHome extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    final CounterBloc _bloc = BlocProvider.of<CounterBloc>(context);
+//    return Scaffold(
+//      body: SafeArea(
+//          child: Container(
+//        alignment: Alignment.center,
+//        child: StreamBuilder(
+//          initialData: _bloc.count,
+//          stream: _bloc.countStream,
+//          builder: (_, snapshot) => Text('${snapshot.data}', style: TextStyle(fontSize: 20.0)),
+//        ),
+//      )),
+//      floatingActionButton:
+//          FloatingActionButton(onPressed: () => _bloc.dispatch(_bloc.count + 1), child: Icon(Icons.add)),
+//    );
+//  }
+//}
 
 //class StreamHome extends StatefulWidget {
 //  @override
