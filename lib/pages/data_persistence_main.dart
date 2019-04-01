@@ -269,10 +269,7 @@ class DataPersistenceDemoPageState extends State<DataPersistenceDemoPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
-//            _fileIoPart(),
-            _sharedPart(),
-          ],
+          children: <Widget>[_fileIoPart(), _sharedPart()],
         ),
       ),
     );
