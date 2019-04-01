@@ -10,6 +10,7 @@ import 'package:flutter_arts_demos_app/pages/button_main.dart';
 import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
 import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
+import 'package:flutter_arts_demos_app/pages/data_persistence_main.dart';
 import 'package:flutter_arts_demos_app/pages/gesture_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
@@ -117,6 +118,9 @@ class MainHomePage extends StatelessWidget {
               title: 'StaggeredAnimations Demo',
               clickAction: () =>
                   Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
+          MenuActionItem(
+              title: 'DataPersistence Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DataPersistenceDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(

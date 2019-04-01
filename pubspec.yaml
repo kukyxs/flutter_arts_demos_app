@@ -24,6 +24,10 @@ dependencies:
   fluttertoast: ^3.0.3
   rxdart: ^0.21.0
   provide: ^1.0.2
+  path_provider: ^0.5.0+1
+  permission_handler: ^2.2.0
+  shared_preferences: ^0.5.1+2
+  sqflite: ^1.1.0
 
 dev_dependencies:
   flutter_test:
