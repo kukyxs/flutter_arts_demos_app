@@ -1,17 +1,24 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_arts_demos_app/application.dart';
+import 'package:flutter_arts_demos_app/bloc/bloc_provider.dart';
+import 'package:flutter_arts_demos_app/bloc_network/user_bloc.dart';
+import 'package:flutter_arts_demos_app/bloc_network/user_page_main.dart';
 import 'package:flutter_arts_demos_app/custom_routes.dart';
+import 'package:flutter_arts_demos_app/http_utils.dart';
 import 'package:flutter_arts_demos_app/pages/animation_main.dart';
 import 'package:flutter_arts_demos_app/pages/app_bar_main.dart';
 import 'package:flutter_arts_demos_app/pages/button_main.dart';
 import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
-import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
 import 'package:flutter_arts_demos_app/pages/data_persistence_main.dart';
+import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
 import 'package:flutter_arts_demos_app/pages/gesture_main.dart';
+import 'package:flutter_arts_demos_app/pages/http_main.dart';
 import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
 import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
@@ -22,9 +29,9 @@ import 'package:flutter_arts_demos_app/pages/staggered_animation_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_arts_demos_app/pages/router_main.dart';
 
 void main() {
+  Application.http = HttpUtils.instance;
   // 强制竖屏
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
     runApp(DemoApp());
@@ -54,8 +61,18 @@ class DemoApp extends StatelessWidget {
 }
 
 class MainHomePage extends StatelessWidget {
+  requestFl() async {
+    Response resp = await HttpUtils.instance
+        .getRequest('http://adr.meizitu.net/wp-json/wp/v2/posts', params: {'page': 1, 'per_page': 10});
+    print('resp: ${resp.data}');
+  }
+
   @override
   Widget build(BuildContext context) {
+//    Dio dio = Dio();
+//    dio.get('http://adr.meizitu.net/wp-json/wp/v2/posts',
+//        queryParameters: {'page': 1, 'per_page': 10}).then((resp) => print('fuli: ${resp.data.toString()}'));
+
     return Scaffold(
         appBar: AppBar(title: Text('Flutter Learning Demo')),
         body: ListView(children: <Widget>[
@@ -121,13 +138,29 @@ class MainHomePage extends StatelessWidget {
           MenuActionItem(
               title: 'DataPersistence Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DataPersistenceDemoPage()))),
+          MenuActionItem(
+              title: 'Http Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HttpDemoPage()))),
+          MenuActionItem(
+              title: 'BlocHttp Demo',
+              clickAction: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc())))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
 //            title: 'Route Demo',
 //            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => APage())),
 //          ),
-        ]));
+        ])
+//      floatingActionButton: FloatingActionButton(
+//        onPressed: () => Navigator.push(
+//            context,
+//            MaterialPageRoute(
+//              builder: (_) => BlocProvider<FuliBloc>(child: FuliPage(), bloc: FuliBloc()),
+//            )),
+//        child: Icon(Icons.beach_access, color: Colors.red),
+//      ),
+        );
   }
 }
 

@@ -8,7 +8,7 @@ class DatabaseUtils {
 
   static DatabaseUtils _instance;
 
-  static DatabaseUtils get instance => _instance;
+  static DatabaseUtils get instance => DatabaseUtils();
 
   DatabaseUtils._internal() {
     getDatabasesPath().then((path) async {
