@@ -10,29 +10,28 @@ class FuliBloc extends BaseBloc {
 
   List<FuliModel> get fuLi => _models;
 
+  int get page => _page;
+
   BehaviorSubject<List<FuliModel>> _controller = BehaviorSubject();
 
   Observable<List<FuliModel>> get stream => Observable(_controller.stream);
 
-  refreshFuli() {
-    _requestFuli(_page).then((models) {
-      _models.clear();
-      _models.addAll(models);
-      _controller.add(_models);
-    });
+  increasePage() => _page++;
+
+  refreshFuli(List<FuliModel> models) {
+    _models.clear();
+    _models.addAll(models);
+    _controller.add(_models);
   }
 
-  loadMoreFuli() {
-    _requestFuli(_page).then((models) {
-      _models.addAll(models);
-      _controller.add(_models);
-    });
+  loadMoreFuli(List<FuliModel> models) {
+    _models.addAll(models);
+    _controller.add(_models);
   }
 
-  Future<List<FuliModel>> _requestFuli(int page) async {
+  Future<List<FuliModel>> requestFuli(int page) async {
     Response resp = await Application.http.getRequest('http://adr.meizitu.net/wp-json/wp/v2/posts',
         params: {'page': page, 'per_page': 10}, callback: (msg) => print(msg));
-    _page++;
     return resp != null ? FuliModel.fromMapList(resp.data) : [];
   }
 

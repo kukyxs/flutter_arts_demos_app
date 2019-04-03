@@ -4,7 +4,7 @@ import 'package:flutter_arts_demos_app/bloc/bloc_provider.dart';
 import 'package:flutter_arts_demos_app/colsed/fuli_bloc.dart';
 import 'package:flutter_arts_demos_app/colsed/fuli_model.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_easyrefresh/taurus_footer.dart';
+import 'package:flutter_easyrefresh/ball_pulse_footer.dart';
 
 class FuliPage extends StatefulWidget {
   @override
@@ -13,6 +13,7 @@ class FuliPage extends StatefulWidget {
 
 class _FuliPageState extends State<FuliPage> {
   ScrollController _controller = ScrollController();
+  GlobalKey<EasyRefreshState> _refreshKey = GlobalKey();
   GlobalKey<RefreshFooterState> _footerKey = GlobalKey();
   FuliBloc _bloc;
 
@@ -20,12 +21,13 @@ class _FuliPageState extends State<FuliPage> {
   void initState() {
     super.initState();
     _bloc = BlocProvider.of<FuliBloc>(context);
-    _bloc.refreshFuli();
+    _request();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  _request() async {
+    List<FuliModel> fulis = await _bloc.requestFuli(_bloc.page);
+    _bloc.page == 1 ? _bloc.refreshFuli(fulis) : _bloc.loadMoreFuli(fulis);
+    _bloc.increasePage();
   }
 
   @override
@@ -37,8 +39,11 @@ class _FuliPageState extends State<FuliPage> {
               child: !snapshot.hasData
                   ? CupertinoActivityIndicator(radius: 12.0)
                   : EasyRefresh(
-                      refreshFooter: TaurusFooter(key: _footerKey),
-                      loadMore: _bloc.loadMoreFuli(),
+                      key: _refreshKey,
+                      refreshFooter: BallPulseFooter(key: _footerKey),
+                      loadMore: () {
+                        _request();
+                      },
                       child: GridView.count(
                         crossAxisSpacing: 8.0,
                         mainAxisSpacing: 4.0,

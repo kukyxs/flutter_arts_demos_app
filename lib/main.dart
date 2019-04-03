@@ -151,15 +151,16 @@ class MainHomePage extends StatelessWidget {
 //            title: 'Route Demo',
 //            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => APage())),
 //          ),
-        ])
-//      floatingActionButton: FloatingActionButton(
-//        onPressed: () => Navigator.push(
-//            context,
-//            MaterialPageRoute(
-//              builder: (_) => BlocProvider<FuliBloc>(child: FuliPage(), bloc: FuliBloc()),
-//            )),
-//        child: Icon(Icons.beach_access, color: Colors.red),
-//      ),
+        ]) /*,
+      floatingActionButton: FloatingActionButton(
+        mini: true,
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => BlocProvider<FuliBloc>(child: FuliPage(), bloc: FuliBloc()),
+            )),
+        child: Icon(Icons.beach_access, color: Colors.red),
+      ),*/
         );
   }
 }
