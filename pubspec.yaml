@@ -30,8 +30,12 @@ dependencies:
   sqflite: ^1.1.0
   dio: ^2.1.0
   flutter_easyrefresh: ^1.2.7
+  json_annotation: ^2.0.0
 
 dev_dependencies:
+  build_runner: ^1.0.0
+  json_serializable: ^2.0.0
+
   flutter_test:
     sdk: flutter
 

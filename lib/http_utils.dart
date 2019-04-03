@@ -10,16 +10,14 @@ class HttpUtils {
 
   static HttpUtils _instance;
 
-  static HttpUtils get instance => HttpUtils();
-
   Dio get hp => _dio;
 
-  HttpUtils._internal() {
-    _dio = Dio(BaseOptions(connectTimeout: 10000, receiveTimeout: 10000));
+  HttpUtils._internal(String base) {
+    _dio = Dio(BaseOptions(baseUrl: base, connectTimeout: 10000, receiveTimeout: 10000));
   }
 
-  factory HttpUtils() {
-    if (_instance == null) _instance = HttpUtils._internal();
+  factory HttpUtils(String base) {
+    if (_instance == null) _instance = HttpUtils._internal(base);
     return _instance;
   }
 

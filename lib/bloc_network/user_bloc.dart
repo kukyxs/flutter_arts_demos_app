@@ -13,10 +13,10 @@ class UserBloc extends BaseBloc {
   Observable<RandomUserModel> get stream => Observable(_controller.stream);
 
   updateUserInfo() {
-    Application.http.getRequest('https://randomuser.me/api').then((response) {
+    Application.http.getRequest('/api').then((response) {
       RandomUserModel model = RandomUserModel.fromMap(response.data);
       _user = model;
-      _controller.sink.add(model);
+      _controller.add(model);
     });
   }
 

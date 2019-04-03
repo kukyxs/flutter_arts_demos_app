@@ -10,6 +10,7 @@ class HttpDemoPage extends StatefulWidget {
 }
 
 class _HttpDemoPageState extends State<HttpDemoPage> {
+  static const _BIRD_SO_URL = 'http://www.caup.cn/';
   static const _USER_ME_URL = 'https://randomuser.me/api/';
   String _netBack = '';
 
@@ -21,19 +22,30 @@ class _HttpDemoPageState extends State<HttpDemoPage> {
   _httpClientRequest() async {
     HttpClient client;
     try {
+      // step 1
       client = HttpClient();
-      HttpClientRequest request = await client.getUrl(Uri.parse(_USER_ME_URL));
+
+      // step 2
+//      Uri uri = Uri(scheme: 'https', host: 'www.xxx.com', queryParameters: {'a': 'AAA'});
+      HttpClientRequest request = await client.getUrl(Uri.parse(_BIRD_SO_URL));
+//      request.add(utf8.encode('{"a": "aaa"}'));
+      request.headers.add('token', 'Bear ${'x' * 20}');
       request.headers.add('user-agent',
           'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.0 Mobile/14E304 Safari/602.1');
+
+      // step 3
       HttpClientResponse response = await request.close();
       print('http headers: ${response.headers.toString()}');
+
+      // step 4
       String strResponse = await response.transform(utf8.decoder).join();
-      print('json: ${json.decode(strResponse)}');
+//      print('json: ${json.decode(strResponse)}');
       setState(() => _netBack = strResponse);
     } catch (e) {
       print('${e.toString()}');
       setState(() => _netBack = 'Fail');
     } finally {
+      // step 5
       client.close();
     }
   }
@@ -48,13 +60,11 @@ class _HttpDemoPageState extends State<HttpDemoPage> {
 
     dio.interceptors.add(InterceptorsWrapper(onRequest: (opt) async {
       dio.interceptors.requestLock.lock();
-      print('start: ${DateTime.now().millisecondsSinceEpoch}');
       await Future.delayed(Duration(milliseconds: 1000)).then((_) {
         Map params = opt.queryParameters;
         params.forEach((key, value) => opt.queryParameters[key] = '$value'.toLowerCase());
         dio.interceptors.requestLock.unlock();
       });
-      print('end: ${DateTime.now().millisecondsSinceEpoch}');
       opt.headers['authorization'] = 'token';
       return opt;
     }, onResponse: (resp) {

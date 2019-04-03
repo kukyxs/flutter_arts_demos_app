@@ -31,7 +31,7 @@ import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
-  Application.http = HttpUtils.instance;
+  Application.http = HttpUtils('https://randomuser.me');
   // 强制竖屏
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
     runApp(DemoApp());
@@ -61,17 +61,9 @@ class DemoApp extends StatelessWidget {
 }
 
 class MainHomePage extends StatelessWidget {
-  requestFl() async {
-    Response resp = await HttpUtils.instance
-        .getRequest('http://adr.meizitu.net/wp-json/wp/v2/posts', params: {'page': 1, 'per_page': 10});
-    print('resp: ${resp.data}');
-  }
 
   @override
   Widget build(BuildContext context) {
-//    Dio dio = Dio();
-//    dio.get('http://adr.meizitu.net/wp-json/wp/v2/posts',
-//        queryParameters: {'page': 1, 'per_page': 10}).then((resp) => print('fuli: ${resp.data.toString()}'));
 
     return Scaffold(
         appBar: AppBar(title: Text('Flutter Learning Demo')),

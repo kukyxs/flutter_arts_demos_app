@@ -1,6 +1,17 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'random_user.g.dart';
+
+@JsonSerializable()
 class RandomUserModel {
   InfoBean info;
   List<UserInfo> results;
+
+  RandomUserModel();
+
+  factory RandomUserModel.fromJson(json) => _$RandomUserModelFromJson(json);
+
+  static Map<String, dynamic> toJson(RandomUserModel model) => _$RandomUserModelToJson(model);
 
   static RandomUserModel fromMap(Map<String, dynamic> map) {
     RandomUserModel user = new RandomUserModel();
@@ -18,11 +29,18 @@ class RandomUserModel {
   }
 }
 
+@JsonSerializable()
 class InfoBean {
   String seed;
   String version;
   int results;
   int page;
+
+  InfoBean();
+
+  factory InfoBean.fromJson(json) => _$InfoBeanFromJson(json);
+
+  static toJson(InfoBean info) => _$InfoBeanToJson(info);
 
   static InfoBean fromMap(Map<String, dynamic> map) {
     InfoBean infoBean = new InfoBean();
@@ -42,6 +60,7 @@ class InfoBean {
   }
 }
 
+@JsonSerializable()
 class UserInfo {
   String gender;
   String email;
@@ -55,6 +74,12 @@ class UserInfo {
   NameBean name;
   PictureBean picture;
   RegisteredBean registered;
+
+  UserInfo();
+
+  factory UserInfo.fromJson(json) => _$UserInfoFromJson(json);
+
+  static toJson(UserInfo user) => _$UserInfoToJson(user);
 
   static UserInfo fromMap(Map<String, dynamic> map) {
     UserInfo resultsListBean = new UserInfo();
@@ -82,9 +107,16 @@ class UserInfo {
   }
 }
 
+@JsonSerializable()
 class DobBean {
   String date;
   int age;
+
+  DobBean();
+
+  factory DobBean.fromJson(json) => _$DobBeanFromJson(json);
+
+  static toJson(DobBean dob) => _$DobBeanToJson(dob);
 
   static DobBean fromMap(Map<String, dynamic> map) {
     DobBean dobBean = new DobBean();
@@ -102,9 +134,16 @@ class DobBean {
   }
 }
 
+@JsonSerializable()
 class IdBean {
   String name;
   String value;
+
+  IdBean();
+
+  factory IdBean.fromJson(json) => _$IdBeanFromJson(json);
+
+  static toJson(IdBean id) => _$IdBeanToJson(id);
 
   static IdBean fromMap(Map<String, dynamic> map) {
     IdBean idBean = new IdBean();
@@ -122,6 +161,7 @@ class IdBean {
   }
 }
 
+@JsonSerializable()
 class LocationBean {
   String street;
   String city;
@@ -129,6 +169,12 @@ class LocationBean {
   String postcode;
   CoordinatesBean coordinates;
   TimezoneBean timezone;
+
+  LocationBean();
+
+  factory LocationBean.fromJson(json) => _$LocationBeanFromJson(json);
+
+  static toJson(LocationBean location) => _$LocationBeanToJson(location);
 
   static LocationBean fromMap(Map<String, dynamic> map) {
     LocationBean locationBean = new LocationBean();
@@ -150,6 +196,7 @@ class LocationBean {
   }
 }
 
+@JsonSerializable()
 class LoginBean {
   String uuid;
   String username;
@@ -158,6 +205,12 @@ class LoginBean {
   String md5;
   String sha1;
   String sha256;
+
+  LoginBean();
+
+  factory LoginBean.fromJson(json) => _$LoginBeanFromJson(json);
+
+  static toJson(LoginBean login) => _$LoginBeanToJson(login);
 
   static LoginBean fromMap(Map<String, dynamic> map) {
     LoginBean loginBean = new LoginBean();
@@ -180,10 +233,17 @@ class LoginBean {
   }
 }
 
+@JsonSerializable()
 class NameBean {
   String title;
   String first;
   String last;
+
+  NameBean();
+
+  factory NameBean.fromJson(json) => _$NameBeanFromJson(json);
+
+  static toJson(NameBean name) => _$NameBeanToJson(name);
 
   static NameBean fromMap(Map<String, dynamic> map) {
     NameBean nameBean = new NameBean();
@@ -202,10 +262,17 @@ class NameBean {
   }
 }
 
+@JsonSerializable()
 class PictureBean {
   String large;
   String medium;
   String thumbnail;
+
+  PictureBean();
+
+  factory PictureBean.fromJson(json) => _$PictureBeanFromJson(json);
+
+  static toJson(PictureBean pic) => _$PictureBeanToJson(pic);
 
   static PictureBean fromMap(Map<String, dynamic> map) {
     PictureBean pictureBean = new PictureBean();
@@ -224,9 +291,16 @@ class PictureBean {
   }
 }
 
+@JsonSerializable()
 class RegisteredBean {
   String date;
   int age;
+
+  RegisteredBean();
+
+  factory RegisteredBean.fromJson(json) => _$RegisteredBeanFromJson(json);
+
+  static toJson(RegisteredBean register) => _$RegisteredBeanToJson(register);
 
   static RegisteredBean fromMap(Map<String, dynamic> map) {
     RegisteredBean registeredBean = new RegisteredBean();
@@ -244,9 +318,16 @@ class RegisteredBean {
   }
 }
 
+@JsonSerializable()
 class CoordinatesBean {
   String latitude;
   String longitude;
+
+  CoordinatesBean();
+
+  factory CoordinatesBean.fromJson(json) => _$CoordinatesBeanFromJson(json);
+
+  static toJson(CoordinatesBean coordinates) => _$CoordinatesBeanToJson(coordinates);
 
   static CoordinatesBean fromMap(Map<String, dynamic> map) {
     CoordinatesBean coordinatesBean = new CoordinatesBean();
@@ -264,9 +345,16 @@ class CoordinatesBean {
   }
 }
 
+@JsonSerializable()
 class TimezoneBean {
   String offset;
   String description;
+
+  TimezoneBean();
+
+  factory TimezoneBean.fromJson(json) => _$TimezoneBeanFromJson(json);
+
+  static toJson(TimezoneBean tz) => _$TimezoneBeanToJson(tz);
 
   static TimezoneBean fromMap(Map<String, dynamic> map) {
     TimezoneBean timezoneBean = new TimezoneBean();
