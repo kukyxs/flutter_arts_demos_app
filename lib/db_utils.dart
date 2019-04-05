@@ -14,12 +14,12 @@ class DatabaseUtils {
     getDatabasesPath().then((path) async {
       _database = await openDatabase(join(path, 'demo.db'), version: 2, onCreate: (db, version) {
         // 创建数据库的时候在这边调用
-        db.execute('create table $_tableStudent '
-            'id integer primary key autoincrement,'
+        db.execute('create table $_tableStudent('
+            'id integer primary key,'
             'name text not null,'
             'weight real not null,'
             'age integer not null default 0,'
-            'gender integer not null default 0');
+            'gender integer not null default 0)');
 
         // 更新升级增加的字段
         db.execute('alter table $_tableStudent add column birthday text');
