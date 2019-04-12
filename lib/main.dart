@@ -23,6 +23,7 @@ import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
 import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
 import 'package:flutter_arts_demos_app/pages/scrollable_main.dart';
+import 'package:flutter_arts_demos_app/pages/custom_view_main.dart';
 import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
 import 'package:flutter_arts_demos_app/pages/staggered_animation_main.dart';
@@ -137,6 +138,9 @@ class MainHomePage extends StatelessWidget {
               title: 'BlocHttp Demo',
               clickAction: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc())))),
+          MenuActionItem(
+              title: 'CustomView Demo',
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomViewDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
