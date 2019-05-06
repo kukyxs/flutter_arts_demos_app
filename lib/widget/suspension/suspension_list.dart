@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_arts_demos_app/widget/suspension/suspension_view.dart';
 
 typedef GroupChangeCallback(int index);
 
@@ -10,6 +11,7 @@ class SuspensionListView extends StatefulWidget {
   final double itemExtent;
   final double headExtent;
   final List<SuspensionView> items;
+  final ScrollController scrollController;
   final ScrollPhysics physics;
   final TextStyle headStyle;
   final Decoration headDecoration;
@@ -24,6 +26,7 @@ class SuspensionListView extends StatefulWidget {
     @required this.itemExtent,
     @required this.headExtent,
     @required this.items,
+    @required this.scrollController,
     this.physics,
     this.headStyle,
     this.headDecoration,
@@ -43,7 +46,6 @@ class _SuspensionListViewState extends State<SuspensionListView> {
   var _children = <Widget>[];
   var _keys = <String>[];
   var _groups = <String, List<SuspensionView>>{};
-  var _listController = ScrollController();
   var _needHeader = true;
   var _keyRange = <double>[];
   var _selectedIndex = 0;
@@ -55,7 +57,7 @@ class _SuspensionListViewState extends State<SuspensionListView> {
     widget.items.forEach((suspensionView) {
       if (!_keys.contains(suspensionView.tagRule)) {
         _keys.add(suspensionView.tagRule);
-        _groups.putIfAbsent(suspensionView.tagRule, () => <SuspensionView>[]);
+        _groups[suspensionView.tagRule] = <SuspensionView>[];
       }
 
       var list = _groups[suspensionView.tagRule] ?? <SuspensionView>[];
@@ -98,14 +100,14 @@ class _SuspensionListViewState extends State<SuspensionListView> {
       }
     });
 
-    _listController.addListener(() {
-      setState(() => _needHeader = _listController.offset >= 0);
+    widget.scrollController.addListener(() {
+      setState(() => _needHeader = widget.scrollController.offset >= 0);
 
       for (var index = 0; index < _keyRange.length; index++) {
         var min = index == 0 ? 0 : _keyRange[index - 1];
         var max = _keyRange[index];
 
-        if (_listController.offset < max && _listController.offset >= min && _selectedIndex != index) {
+        if (widget.scrollController.offset < max && widget.scrollController.offset >= min && _selectedIndex != index) {
           setState(() {
             _selectedIndex = index;
           });
@@ -120,17 +122,6 @@ class _SuspensionListViewState extends State<SuspensionListView> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    _listController.dispose();
-  }
-
-  @override
-  void didUpdateWidget(SuspensionListView oldWidget) {
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
@@ -138,7 +129,7 @@ class _SuspensionListViewState extends State<SuspensionListView> {
         children: <Widget>[
           ListView(
             physics: widget.physics,
-            controller: _listController,
+            controller: widget.scrollController,
             children: _children,
           ),
           Positioned(
@@ -162,14 +153,4 @@ class _SuspensionListViewState extends State<SuspensionListView> {
       ),
     );
   }
-}
-
-abstract class SuspensionView {
-  Object data;
-
-  SuspensionView(this.data) : assert(data != null);
-
-  String get tagRule;
-
-  Widget get itemLayout;
 }

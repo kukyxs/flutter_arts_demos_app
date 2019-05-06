@@ -27,6 +27,7 @@ import 'package:flutter_arts_demos_app/pages/custom_view_main.dart';
 import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
 import 'package:flutter_arts_demos_app/pages/staggered_animation_main.dart';
+import 'package:flutter_arts_demos_app/pages/suspension_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -62,13 +63,15 @@ class DemoApp extends StatelessWidget {
 }
 
 class MainHomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(title: Text('Flutter Learning Demo')),
         body: ListView(children: <Widget>[
+          MenuActionItem(
+            title: 'SuspensionView Demo',
+            clickAction: () => Navigator.push(context, ScalePageRoute(SuspensionPage())),
+          ),
           MenuActionItem(
             title: 'AppBar Demo',
             clickAction: () => Navigator.push(context, ScalePageRoute(AppBarDemoPage())),
@@ -107,40 +110,25 @@ class MainHomePage extends StatelessWidget {
             clickAction: () => Navigator.push(context, RotateScalePageRoute(LoginDemoPage())),
           ),
           MenuActionItem(
-              title: 'Scrollable Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollableDemoPage()))),
+              title: 'Scrollable Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollableDemoPage()))),
           MenuActionItem(
-              title: 'ExpansionTile Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExpansionTilesDemoPage()))),
-          MenuActionItem(
-              title: 'Sliver Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage()))),
-          MenuActionItem(
-              title: 'Prompt Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage()))),
-          MenuActionItem(
-              title: 'Gesture Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GestureDemoPage()))),
-          MenuActionItem(
-              title: 'Animation Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage()))),
+              title: 'ExpansionTile Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExpansionTilesDemoPage()))),
+          MenuActionItem(title: 'Sliver Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage()))),
+          MenuActionItem(title: 'Prompt Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage()))),
+          MenuActionItem(title: 'Gesture Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GestureDemoPage()))),
+          MenuActionItem(title: 'Animation Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage()))),
           MenuActionItem(
               title: 'StaggeredAnimations Demo',
-              clickAction: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
           MenuActionItem(
               title: 'DataPersistence Demo',
               clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DataPersistenceDemoPage()))),
-          MenuActionItem(
-              title: 'Http Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HttpDemoPage()))),
+          MenuActionItem(title: 'Http Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HttpDemoPage()))),
           MenuActionItem(
               title: 'BlocHttp Demo',
-              clickAction: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc())))),
+              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc())))),
           MenuActionItem(
-              title: 'CustomView Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomViewDemoPage()))),
+              title: 'CustomView Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomViewDemoPage()))),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
