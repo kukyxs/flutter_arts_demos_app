@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_arts_demos_app/widget/flutter_suspension.dart';
+import 'package:english_words/english_words.dart';
 
 class SuspensionPage extends StatefulWidget {
   @override
@@ -8,45 +9,7 @@ class SuspensionPage extends StatefulWidget {
 }
 
 class _SuspensionPageState extends State<SuspensionPage> {
-  final list = [
-    'AAA',
-    'BBB',
-    'BBB',
-    'BCV',
-    'UYT',
-    'ABC',
-    'ABC',
-    'ANM',
-    'GHI',
-    'GHI',
-    'GJK',
-    'UYT',
-    'UYT',
-    'ZKK',
-    'BBB',
-    'ZKK',
-    'UYT',
-    'OOO',
-    'OOO',
-    'GHY',
-    'GHY',
-    'REG',
-    'CNI',
-    'CNI',
-    'GHY',
-    'SUU',
-    'OOO',
-    'SUU',
-    'SUU',
-    'ZKK',
-    'ZKK',
-    'ADD',
-    'REG',
-    'REG',
-    'CNI',
-    'CNI',
-  ];
-
+  List<String> list;
   List<String> _keys;
   List<double> _ranges;
 
@@ -61,6 +24,7 @@ class _SuspensionPageState extends State<SuspensionPage> {
   @override
   void initState() {
     super.initState();
+    list = nouns.take(200).toList();
     _suspensions = list.map((str) => StrSuspensionView(str)).toList();
     var result = SuspensionUtils.getSuspensionKeyRanges(_suspensions, _itemExtent, _headExtent, divideHeight: _dividerExtent, rule: _rule);
     _keys = result['keys'];
@@ -93,6 +57,7 @@ class _SuspensionPageState extends State<SuspensionPage> {
                       ),
                       onTap: () {
                         _scrollController.animateTo(_ranges[index], duration: Duration(milliseconds: 300), curve: Curves.linear);
+//                      _scrollController.jumpTo(_ranges[index]);
                       },
                     ),
                 separatorBuilder: (_, index) => Divider(
