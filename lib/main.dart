@@ -15,6 +15,7 @@ import 'package:flutter_arts_demos_app/pages/app_bar_main.dart';
 import 'package:flutter_arts_demos_app/pages/button_main.dart';
 import 'package:flutter_arts_demos_app/pages/checkbox_switch_main.dart';
 import 'package:flutter_arts_demos_app/pages/column_main.dart';
+import 'package:flutter_arts_demos_app/pages/custom_view_main.dart';
 import 'package:flutter_arts_demos_app/pages/data_persistence_main.dart';
 import 'package:flutter_arts_demos_app/pages/expansion_tile_main.dart';
 import 'package:flutter_arts_demos_app/pages/gesture_main.dart';
@@ -23,7 +24,6 @@ import 'package:flutter_arts_demos_app/pages/image_main.dart';
 import 'package:flutter_arts_demos_app/pages/login_home_page.dart';
 import 'package:flutter_arts_demos_app/pages/prompt_main.dart';
 import 'package:flutter_arts_demos_app/pages/scrollable_main.dart';
-import 'package:flutter_arts_demos_app/pages/custom_view_main.dart';
 import 'package:flutter_arts_demos_app/pages/sliver_main.dart';
 import 'package:flutter_arts_demos_app/pages/stack_main.dart';
 import 'package:flutter_arts_demos_app/pages/staggered_animation_main.dart';
@@ -32,11 +32,14 @@ import 'package:flutter_arts_demos_app/pages/text_field_main.dart';
 import 'package:flutter_arts_demos_app/pages/text_main.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'bloc/language_bloc.dart';
+import 'localizations/demo_localizations.dart';
+
 void main() {
   Application.http = HttpUtils('https://randomuser.me');
   // 强制竖屏
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]).then((_) {
-    runApp(DemoApp());
+    runApp(BlocProvider(child: DemoApp(), bloc: LanguageBloc()));
 
     // 透明状态栏
     if (Platform.isAndroid) {
@@ -48,17 +51,25 @@ void main() {
 class DemoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Learning Demo',
-      home: MainHomePage(),
-      routes: {},
-      supportedLocales: const [const Locale('zh')],
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      debugShowCheckedModeBanner: false,
-    );
+    var bloc = BlocProvider.of<LanguageBloc>(context);
+    return StreamBuilder<Locale>(
+        stream: bloc.localeStream,
+        initialData: Locale('zh'),
+        builder: (context, locale) {
+          return MaterialApp(
+            title: 'Flutter Learning Demo',
+            home: MainHomePage(),
+            routes: {},
+            locale: locale.data,
+            supportedLocales: [locale.data],
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              DemoLocalizationDelegate.delegate,
+            ],
+            debugShowCheckedModeBanner: false,
+          );
+        });
   }
 }
 
@@ -66,69 +77,106 @@ class MainHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text('Flutter Learning Demo')),
+        appBar: AppBar(
+          title: Text(DemoLocalization.of(context).currentLocale.homeTitle()),
+          actions: <Widget>[
+            PopupMenuButton<String>(onSelected: (code) {
+              BlocProvider.of<LanguageBloc>(context).changeLanguage(Locale(code));
+            }, itemBuilder: (_) {
+              return [
+                PopupMenuItem(
+                  child: Text('English'),
+                  value: 'en',
+                ),
+                PopupMenuItem(
+                  child: Text('中文'),
+                  value: 'zh',
+                )
+              ];
+            })
+          ],
+        ),
         body: ListView(children: <Widget>[
           MenuActionItem(
-            title: 'SuspensionView Demo',
+            title: DemoLocalization.of(context).currentLocale.listDemo(),
             clickAction: () => Navigator.push(context, ScalePageRoute(SuspensionPage())),
           ),
           MenuActionItem(
-            title: 'AppBar Demo',
+            title: DemoLocalization.of(context).currentLocale.appbarDemo(),
             clickAction: () => Navigator.push(context, ScalePageRoute(AppBarDemoPage())),
           ),
           MenuActionItem(
-            title: 'Text Demo',
+            title: DemoLocalization.of(context).currentLocale.textDemo(),
             clickAction: () => Navigator.push(context, FadeInPageRoute(TextDemoPage())),
           ),
           MenuActionItem(
-            title: 'Image Demo',
+            title: DemoLocalization.of(context).currentLocale.imageDemo(),
             clickAction: () => Navigator.push(context, RotateScalePageRoute(ImageDemoPage())),
           ),
           MenuActionItem(
-            title: 'Button Demo',
+            title: DemoLocalization.of(context).currentLocale.buttonDemo(),
             // CupertinoPageRoute 为 iOS 风格切换，支持侧滑关闭当前页面
             clickAction: () => Navigator.push(context, CupertinoPageRoute(builder: (_) => ButtonDemoPage())),
           ),
           MenuActionItem(
-            title: 'Column Demo',
+            title: DemoLocalization.of(context).currentLocale.columnDemo(),
             clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ColumnDemoPage())),
           ),
           MenuActionItem(
-            title: 'Stack Demo',
+            title: 'Stack 示例',
             clickAction: () => Navigator.push(context, ScalePageRoute(StackDemoPage())),
           ),
           MenuActionItem(
-            title: 'Check Switch Demo',
+            title: 'Check Switch 示例',
             clickAction: () => Navigator.push(context, ScalePageRoute(CheckSwitchDemoPage())),
           ),
           MenuActionItem(
-            title: 'TextField Demo',
+            title: 'TextField 示例',
             clickAction: () => Navigator.push(context, FadeInPageRoute(TextFieldDemoPage())),
           ),
           MenuActionItem(
-            title: 'Login Demo',
+            title: '登录注册页面示例',
             clickAction: () => Navigator.push(context, RotateScalePageRoute(LoginDemoPage())),
           ),
           MenuActionItem(
-              title: 'Scrollable Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollableDemoPage()))),
+            title: '滑动列表示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ScrollableDemoPage())),
+          ),
           MenuActionItem(
-              title: 'ExpansionTile Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExpansionTilesDemoPage()))),
-          MenuActionItem(title: 'Sliver Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage()))),
-          MenuActionItem(title: 'Prompt Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage()))),
-          MenuActionItem(title: 'Gesture Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GestureDemoPage()))),
-          MenuActionItem(title: 'Animation Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage()))),
+            title: '折叠列表示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ExpansionTilesDemoPage())),
+          ),
           MenuActionItem(
-              title: 'StaggeredAnimations Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
+            title: 'Sliver 系列示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => SliverDemoPage())),
+          ),
           MenuActionItem(
-              title: 'DataPersistence Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DataPersistenceDemoPage()))),
-          MenuActionItem(title: 'Http Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HttpDemoPage()))),
+            title: '弹窗示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => PromptDemoPage())),
+          ),
           MenuActionItem(
-              title: 'BlocHttp Demo',
-              clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc())))),
+            title: '手势(基础)示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => GestureDemoPage())),
+          ),
           MenuActionItem(
-              title: 'CustomView Demo', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomViewDemoPage()))),
+            title: '动画(基础)示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => AnimationDemoPage())),
+          ),
+          MenuActionItem(
+              title: '交错动画示例 ', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => StaggeredAnimationsDemoPage()))),
+          MenuActionItem(title: '数据持久化示例', clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => DataPersistenceDemoPage()))),
+          MenuActionItem(
+            title: '网络示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => HttpDemoPage())),
+          ),
+          MenuActionItem(
+            title: 'BLoC 展示',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => BlocProvider(child: UserPageDemo(), bloc: UserBloc()))),
+          ),
+          MenuActionItem(
+            title: '自定义 view 示例',
+            clickAction: () => Navigator.push(context, MaterialPageRoute(builder: (_) => CustomViewDemoPage())),
+          ),
 
           /// Router 界面因为涉及到带 `Name` 方法的执行，需要单独运行 `router_main.dart` 文件
 //          MenuActionItem(
